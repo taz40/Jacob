@@ -15,7 +15,7 @@ public class test {
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("hi");
-		delay("whats up?",600);
+		delay("sup?",600);
 		
 		while(true){
 			if (scan.nextLine().equals("nothing")){
@@ -24,7 +24,7 @@ public class test {
 				delay("good bye",1500);
 				break;
 			}else{
-				delay(confusedanswers[rand.nextInt(confusedanswers.length )],800);
+				delay(confusedanswers[rand.nextInt(confusedanswers.length)],800);
 			}
 		}
 	}
