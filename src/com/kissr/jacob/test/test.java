@@ -17,7 +17,7 @@ public class test {
 		System.out.println("hi");
 		delay("sup?",600);
 		
-		while(true){
+		while(true){ //Game Loop
 			if (scan.nextLine().equals("nothing")){
 				delay("ok",800);
 				
