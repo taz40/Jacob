@@ -5,6 +5,7 @@ import io.brace.lightsoutgaming.engine.graphics.Sprite;
 import io.brace.lightsoutgaming.engine.graphics.SpriteSheet;
 import io.brace.lightsoutgaming.engine.input.Mouse;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Main extends LightsOut {
@@ -19,11 +20,11 @@ public class Main extends LightsOut {
 	public static Sprite tl = new Sprite(3, 1, 3, 16, sheet);
 	public static Sprite br = new Sprite(4, 1, 3, 16, sheet);
 	public static Sprite bl = new Sprite(3, 0, 3, 16, sheet);
-	public static Level level = new Level("/levels/1.png");
-	double angle = 0;
+	public static Level level = new Level("/levels/level.png");
+	ArrayList<Entity> entities = new ArrayList<Entity>();
+	public Entity preview = new Turret(0, 0);
 	Random rand = new Random();
 	int ex, ey;
-	int tx, ty;
 	
 	public static void main(String[] args){
 		Main main = new Main();
@@ -44,15 +45,23 @@ public class Main extends LightsOut {
 		screen.clear(0xffffffff);
 		screen.renderSprite(0, 0, level, true);
 		screen.renderSprite(ex, ey, enemy, false);
-		screen.renderSprite(tx, tx, base, false);
-		screen.renderSprite(tx, tx, turet.rotate(angle), false);
+		for(int i = 0; i < entities.size(); i++){
+			entities.get(i).render(screen);
+		}
+		preview.render(screen);
 		show();
 	}
 
 	@Override
 	protected void update() {
-		angle = Math.toDegrees(Math.atan2(ey-tx, ex-tx));
-		System.out.println(angle);
+		preview.x = Mouse.mouseX - (base.width / 2);
+		preview.y = Mouse.mouseY - (base.height / 2);
+		if(Mouse.button == 1){
+			entities.add(new Turret(Mouse.clickX - (base.width / 2), Mouse.clickY - (base.height / 2)));
+		}
+		for(int i = 0; i < entities.size(); i++){
+			entities.get(i).update();
+		}
 	}
 	
 }
